@@ -1,0 +1,71 @@
+class Customer:
+    def __init__(self, customer_id, name, address):
+        self.customer_id = customer_id
+        self.name = name
+        self.address = address
+
+    def display_info(self):
+        print(f"Customer ID: {self.customer_id}")
+        print(f"Name: {self.name}")
+        print(f"Address: {self.address}")
+        print()
+
+
+class Account:
+    def __init__(self, account_number, customer, balance=0.0):
+        self.account_number = account_number
+        self.customer = customer
+        self.balance = balance
+
+    def deposit(self, amount):
+        if amount > 0:
+            self.balance += amount
+            print(f"Deposited ${amount}. New balance: ${self.balance}")
+        else:
+            print("Invalid deposit amount.")
+
+    def withdraw(self, amount):
+        if 0 < amount <= self.balance:
+            self.balance -= amount
+            print(f"Withdrew ${amount}. New balance: ${self.balance}")
+        else:
+            print("Invalid withdrawal amount.")
+
+    def display_info(self):
+        print(f"Account Number: {self.account_number}")
+        self.customer.display_info()
+        print(f"Balance: ${self.balance}")
+        print()
+
+
+class Bank:
+    def __init__(self, bank_name):
+        self.bank_name = bank_name
+        self.accounts = {}
+
+    def add_account(self, account):
+        self.accounts[account.account_number] = account
+        print("Account added successfully.")
+
+    def display_accounts(self):
+        print(f"Accounts in {self.bank_name}:")
+        for account_number, account in self.accounts.items():
+            account.display_info()
+
+
+# Example usage
+customer1 = Customer(1, "John Doe", "123 Main St")
+customer2 = Customer(2, "Jane Smith", "456 Oak St")
+
+account1 = Account(1001, customer1, 500.0)
+account2 = Account(1002, customer2, 1000.0)
+
+bank = Bank("My Bank")
+bank.add_account(account1)
+bank.add_account(account2)
+
+account1.deposit(200)
+account2.withdraw(300)
+
+bank.display_accounts()
+
